@@ -25,4 +25,5 @@ youtube.com##ytd-watch-flexy[playlist] ytd-playlist-panel-renderer#playlist:styl
 youtube.com##ytd-watch-flexy[playlist] ytd-playlist-panel-renderer#playlist #container:style(max-height: 780px !important; overflow: hidden !important)
 youtube.com##ytd-watch-flexy[playlist] ytd-playlist-panel-renderer#playlist #items:style(overflow-y: auto !important; max-height: 685px !important)
 youtube.com##ytd-watch-flexy:not([playlist]) ytd-playlist-panel-renderer#playlist:style(display: none !important)
+! To get theater mode back
 youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.disable_theater_mode, false)
