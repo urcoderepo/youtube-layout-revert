@@ -1,0 +1,76 @@
+! Title: rules with Gemini button
+! 유튜브 레이아웃 되돌리기 (YouTube layout revert)
+! 배열 순서: 메인 영상창 → 추천 영상 → 설명 → 댓글 → 사이드 레일(설명·댓글·질문하기 메뉴) → 재생목록 → 채팅창
+! 사이드 레일이란: 화면 오른쪽 끝에 세로로 놓이는 3개 버튼 메뉴(설명, 댓글, 질문하기)를 가리킴. 누르면 해당 패널이 열림
+
+! ===== A. 메인 영상창 (플레이어) =====
+! 01. [플래그] 극장 모드 비활성화 설정을 꺼서 극장 모드 버튼을 되살림
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.disable_theater_mode, false)
+! 02. [플래그] 시네마틱 조명(영상 주변으로 빛이 번지는 효과)을 끔
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.kevlar_watch_cinematics, false)
+! 03. [화면 보정] 주 영역(영상+댓글)의 최대 폭 제한을 해제
+youtube.com##ytd-watch-flexy #primary:style(max-width: none !important)
+! 04. [화면 보정] 플레이어 바깥 상자의 최대 폭 제한을 해제
+youtube.com##ytd-watch-flexy #player-container-outer:style(max-width: none !important)
+! 05. [화면 보정] 플레이어 높이를 16:9 비율(56.25%)로 하되 화면 높이에서 169px을 뺀 값을 넘지 않게 제한
+youtube.com##ytd-watch-flexy #player-container-inner:style(padding-top: min(56.25%, calc(100vh - 169px)) !important)
+
+! ===== B. 추천 영상 (이전 레이아웃의 오른쪽 열 / 실험용 새 레이아웃의 메인 영상 아래 격자) =====
+! 06. [플래그] 시청 화면을 새 격자(grid) 레이아웃으로 전환할 자격 판정을 끔
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_watch_eligible_to_switch_to_grid, false)
+! 07. [플래그] 단일 열 격자 보기를 끔
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_watch_enable_single_column_grid_view, false)
+! 08. [플래그] 고정 패널과 다음 영상 영역을 격자로 맞바꾸는 동작을 끔
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_fixed_panel_watch_next_grid_swap, false)
+! 09. [플래그] 새 시청 화면의 상단 강조 목록(hero list) 표시를 끔 (용도와 소속 영역은 이름에서 추정)
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_watch_hero_list, false)
+
+! ===== C. 설명 =====
+! 10. [플래그] 영상 설명을 별도 참여 패널(engagement panel)에 띄우는 동작을 끔
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_engagement_panel_show_description, false)
+! 11. [플래그] 요약 정보를 다른 영역으로 옮기는 동작을 끔 (용도 추정)
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_watch_move_summary_to_sd, false)
+
+! ===== D. 댓글 =====
+! 12. [플래그] 패널이 열려 있는 동안 댓글을 숨기는 동작을 끔
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.kevlar_watch_hide_comments_while_panel_open, false)
+
+! ===== E. 사이드 메뉴 레일 (오른쪽 끝의 설명·댓글·질문하기 세로 메뉴) =====
+! 13. [플래그] 오른쪽 기본 패널을 고정해 두는 동작을 끔
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_watch_fixed_default_panels, false)
+! 14. [플래그] 영상 쪽과 오른쪽 영역이 따로 스크롤되는 분할 스크롤을 끔
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_watch_split_scroll, false)
+! 15. [플래그] 오른쪽 사이드 레일의 닫을 수 있는 패널을 끔
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_side_rail_dismissible_panels, false)
+! 16. [플래그] 웹 사이드 레일 기능 자체를 끔
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.enable_web_side_rail, false)
+!
+! ★ 사이드 메뉴의 ‘Gemini 질문하기’ 버튼을 사용하고 싶은 경우: 아래 17번과 18번 두 줄 맨 앞에 ! 를 붙여 주석 처리(비활성화)하세요.
+!    - 17번과 18번 규칙을 모두 비활성화시켜야 합니다. 17번 규칙만 비활성하면 버튼 자리에 빈 공간만 생기고, 18번 규칙만 비활성화하면 사이드 메뉴가 추천 영상란과 겹쳐 보입니다.
+!    - 결과: 설명·댓글·질문하기 버튼이 오른쪽 끝에 나타나고, 메인 영상 가로폭은 이전 데스크탑 레이아웃과 비슷한 크기인 실험용 새 레이아웃 크기로 복귀됩니다.
+! 17번과 18번 규칙을 모두 활성화시키면 사이드 메뉴 버튼들이 숨겨지고 자리도 없어져 메인 영상 가로폭이 이전 레이아웃보다 훨씬 커집니다.
+!
+! 17. [화면 보정] 사이드 레일 메뉴가 차지하는 공간의 가로 픽셀을 0px로 지정합니다. 그러면 메인 영상 가로폭이 그만큼 넓어집니다. ← Gemini 질문하기를 사용하려면 이 규칙을 비활성화 또는 아랫줄의 맨 앞에 !를 달아 주석 처리
+!youtube.com##ytd-watch-flexy:style(--ytd-watch-flexy-fixed-side-menu-width: 0px !important)
+! 18. [요소 숨김] 사이드 레일 메뉴(설명·댓글·질문하기 3개 버튼)를 숨김 ← Gemini 질문하기를 사용하려면 이 규칙을 비활성화 또는 아랫줄의 맨 앞에 !를 달아 주석 처리
+!youtube.com##.ytSideRailViewModelHost
+! 19. [화면 보정] 열 영역 뒤에 붙는 가상 요소(오른쪽 자리 확보용으로 추정)를 제거
+youtube.com##ytd-watch-flexy #columns::after:style(width: 0 !important; display: none !important)
+
+! ===== F. 재생목록 (Playlist fix) =====
+! 20. [화면 보정] 재생목록 영상일 때 패널을 세로 배치로 보이게 하고 높이를 780px로 제한
+youtube.com##ytd-watch-flexy[playlist] ytd-playlist-panel-renderer#playlist:style(display: flex !important; flex-direction: column !important; max-height: 780px !important; overflow: hidden !important)
+! 21. [화면 보정] 재생목록 패널 내부 컨테이너도 780px로 제한
+youtube.com##ytd-watch-flexy[playlist] ytd-playlist-panel-renderer#playlist #container:style(max-height: 780px !important; overflow: hidden !important)
+! 22. [화면 보정] 재생목록 항목 영역만 세로 스크롤되게 하고 높이를 685px로 제한
+youtube.com##ytd-watch-flexy[playlist] ytd-playlist-panel-renderer#playlist #items:style(overflow-y: auto !important; max-height: 685px !important)
+! 23. [화면 보정] 재생목록이 아닌 영상에서는 재생목록 패널을 숨김
+youtube.com##ytd-watch-flexy:not([playlist]) ytd-playlist-panel-renderer#playlist:style(display: none !important)
+
+! ===== G. 채팅창 (라이브 채팅) =====
+! 24. [플래그] 라이브 채팅 패널 쪽에서 같은 맞바꿈 동작을 끔
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_live_chat_panel_watch_next_grid_swap, false)
+! 25. [화면 보정] 접힌 상태의 라이브 채팅 프레임을 다시 표시
+youtube.com##ytd-live-chat-frame[collapsed]:style(display: block !important)
+! 26. [화면 보정] 채팅 표시/숨김 버튼을 다시 표시
+youtube.com##ytd-live-chat-frame[collapsed] #show-hide-button:style(display: flex !important)
