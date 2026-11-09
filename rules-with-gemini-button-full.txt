@@ -1,0 +1,54 @@
+! Title: rules with Gemini button (full)
+! 활성 규칙(23): 01~16, 20~26번 / 비활성 규칙(3): 17,18,19번
+! 01
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.disable_theater_mode, false)
+! 02
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.kevlar_watch_cinematics, false)
+! 03
+youtube.com##ytd-watch-flexy #primary:style(max-width: none !important)
+! 04
+youtube.com##ytd-watch-flexy #player-container-outer:style(max-width: none !important)
+! 05
+youtube.com##ytd-watch-flexy #player-container-inner:style(padding-top: min(56.25%, calc(100vh - 169px)) !important)
+! 06
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_watch_eligible_to_switch_to_grid, false)
+! 07
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_watch_enable_single_column_grid_view, false)
+! 08
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_fixed_panel_watch_next_grid_swap, false)
+! 09
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_watch_hero_list, false)
+! 10
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_engagement_panel_show_description, false)
+! 11
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_watch_move_summary_to_sd, false)
+! 12
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.kevlar_watch_hide_comments_while_panel_open, false)
+! 13
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_watch_fixed_default_panels, false)
+! 14
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_watch_split_scroll, false)
+! 15
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_side_rail_dismissible_panels, false)
+! 16
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.enable_web_side_rail, false)
+! 17
+!youtube.com##ytd-watch-flexy:style(--ytd-watch-flexy-fixed-side-menu-width: 0px !important)
+! 18
+!youtube.com##.ytSideRailViewModelHost
+! 19
+!youtube.com##ytd-watch-flexy #columns::after:style(width: 0 !important; display: none !important)
+! 20
+youtube.com##ytd-watch-flexy[playlist] ytd-playlist-panel-renderer#playlist:style(display: flex !important; flex-direction: column !important; max-height: 780px !important; overflow: hidden !important)
+! 21
+youtube.com##ytd-watch-flexy[playlist] ytd-playlist-panel-renderer#playlist #container:style(max-height: 780px !important; overflow: hidden !important)
+! 22
+youtube.com##ytd-watch-flexy[playlist] ytd-playlist-panel-renderer#playlist #items:style(overflow-y: auto !important; max-height: 685px !important)
+! 23
+youtube.com##ytd-watch-flexy:not([playlist]) ytd-playlist-panel-renderer#playlist:style(display: none !important)
+! 24
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_live_chat_panel_watch_next_grid_swap, false)
+! 25
+youtube.com##ytd-live-chat-frame[collapsed]:style(display: block !important)
+! 26
+youtube.com##ytd-live-chat-frame[collapsed] #show-hide-button:style(display: flex !important)
